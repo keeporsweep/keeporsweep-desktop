@@ -37,26 +37,27 @@ class Application(tk.Frame):
       for file in files:
         element_list.append(os.path.join(root, file))
     shuffle(element_list)
-    print(element_list[0])
 
 
   def create_widgets(self):
     # Show preview
     self.canvas = Canvas(self, width=canvas_width, height=canvas_height, bg="white")
     self.canvas.pack(side="top", expand=1, padx=margin, pady=margin)
-    self.image_raw = Image.open(element_list[0])
 
-    # Fit image to canvas, https://stackoverflow.com/a/19450866
-    wpercent = (canvas_width / float(self.image_raw.size[0]))
-    hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-    self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
-    self.image = ImageTk.PhotoImage(self.image_raw)
+    element_current = element_list[0]
 
-    self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
-    self.canvas.pack(expand=1, fill="both")
+    # Image handling
+    if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+      self.image_raw = Image.open(element_list[0])
+      # Fit image to canvas, https://stackoverflow.com/a/19450866
+      wpercent = (canvas_width / float(self.image_raw.size[0]))
+      hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
+      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
+      self.image = ImageTk.PhotoImage(self.image_raw)
+      self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
     # Splitting up the file path, removing current directory
-    element_current = element_list[0][len(path):]
+    element_relativepath = element_current[len(path):]
     element_details, element_title = element_current.rsplit('/',1)
 
     # Element title
@@ -77,30 +78,36 @@ class Application(tk.Frame):
 
 
   def element_preview(self):
-    # Update preview
-    self.image_raw = Image.open(element_list[0])
-    wpercent = (canvas_width / float(self.image_raw.size[0]))
-    hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-    self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
-    self.image = ImageTk.PhotoImage(self.image_raw)
-    self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
+    self.canvas.delete("all")
+    element_current = element_list[0]
+    # Image handling
+    if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+      # Update preview
+      self.image_raw = Image.open(element_list[0])
+      wpercent = (canvas_width / float(self.image_raw.size[0]))
+      hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
+      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
+      self.image = ImageTk.PhotoImage(self.image_raw)
+      self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
 
   def element_text(self):
+    element_current = element_list[0]
     # Splitting up the file path, removing current directory
-    element_current = element_list[0][len(path):]
+    element_relativepath = element_current[len(path):]
     element_details, element_title = element_current.rsplit('/',1)
     # Element title
     self.title.config(text=element_title)
     # Element details
     self.details.config(text=element_details)
 
+
   # Pressing "Keep" button
   def keep_element(self):
-    print("Keep!")
     element_list.pop(0)
     self.element_preview()
     self.element_text()
+
 
   # Pressing "Sweep" button
   def sweep_element(self):
