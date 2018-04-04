@@ -12,7 +12,7 @@ import os
 from random import shuffle
 
 element_list = []
-path = os.path.dirname(os.path.realpath(__file__))
+path = os.getcwd()
 canvas_width = 500
 canvas_height = 500
 margin = 50
