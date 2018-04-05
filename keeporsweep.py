@@ -11,12 +11,14 @@ from PIL import ImageTk,Image
 import os
 from random import shuffle
 
+root = tk.Tk()
 element_list = []
 path = os.getcwd()
-canvas_width = 500
-canvas_height = 500
-margin = 50
-padding = 25
+screen_height = root.winfo_screenheight()
+canvas_width = int(screen_height/2)
+canvas_height = int(screen_height/2)
+margin = int(screen_height/20)
+padding = int(margin/2)
 
 
 
@@ -52,7 +54,7 @@ class Application(tk.Frame):
       # Fit image to canvas, https://stackoverflow.com/a/19450866
       wpercent = (canvas_width / float(self.image_raw.size[0]))
       hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
+      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.BICUBIC)
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
@@ -86,7 +88,7 @@ class Application(tk.Frame):
       self.image_raw = Image.open(element_list[0])
       wpercent = (canvas_width / float(self.image_raw.size[0]))
       hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.ANTIALIAS)
+      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.BICUBIC)
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
@@ -115,10 +117,8 @@ class Application(tk.Frame):
 
 
 
-root = tk.Tk()
 app = Application(master=root)
 app.master.title("Keep or Sweep")
 app.master.configure(background="white")
-app.master.minsize(600, 750)
 
 app.mainloop()
