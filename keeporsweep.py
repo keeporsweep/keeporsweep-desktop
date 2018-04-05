@@ -14,6 +14,9 @@ from random import shuffle
 root = tk.Tk()
 element_list = []
 path = os.getcwd()
+
+# Ensure window fits screen
+# Preview canvas to half screen height and margin/padding relatively
 screen_height = root.winfo_screenheight()
 canvas_width = int(screen_height/2)
 canvas_height = int(screen_height/2)
@@ -32,23 +35,28 @@ class Application(tk.Frame):
     self.create_widgets()
 
 
+  # Return random list of all files
   def random_files(self, path):
     global element_list
+    # Get list of all files
     for root, dirs, files in os.walk(path):
+      # Ignore hidden folders
       dirs[:] = [d for d in dirs if not d.startswith('.')]
       for file in files:
         element_list.append(os.path.join(root, file))
+    # Return it in random order
     shuffle(element_list)
 
 
+  # Create all interface elements
   def create_widgets(self):
-    # Show preview
+    # Preview container
     self.canvas = Canvas(self, width=canvas_width, height=canvas_height, bg="white")
     self.canvas.pack(side="top", expand=1, padx=margin, pady=margin)
 
     element_current = element_list[0]
 
-    # Image handling
+    # Handle previews for images
     if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
       self.image_raw = Image.open(element_list[0])
       # Fit image to canvas, https://stackoverflow.com/a/19450866
@@ -58,7 +66,7 @@ class Application(tk.Frame):
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
-    # Splitting up the file path, removing current directory
+    # Split up the file path, remove current directory
     element_relativepath = element_current[len(path):]
     element_details, element_title = element_current.rsplit('/',1)
 
@@ -79,6 +87,7 @@ class Application(tk.Frame):
     self.sweep.pack(side="left", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
 
+  # Display preview of current element
   def element_preview(self):
     self.canvas.delete("all")
     element_current = element_list[0]
@@ -93,6 +102,7 @@ class Application(tk.Frame):
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
 
+  # Display title and details of current element
   def element_text(self):
     element_current = element_list[0]
     # Splitting up the file path, removing current directory
@@ -104,16 +114,27 @@ class Application(tk.Frame):
     self.details.config(text=element_details)
 
 
-  # Pressing "Keep" button
-  def keep_element(self):
+  # Move to next element
+  def next_element(self):
+    # Remove element from list
     element_list.pop(0)
+    # Display next element
     self.element_preview()
     self.element_text()
 
 
+  # Pressing "Keep" button
+  def keep_element(self):
+    # Simply go to next element
+    self.next_element()
+
+
   # Pressing "Sweep" button
   def sweep_element(self):
+    # Delete current element
     print("Sweep!")
+    # Then go to next element
+    self.next_element()
 
 
 
