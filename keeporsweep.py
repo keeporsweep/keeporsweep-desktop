@@ -10,6 +10,7 @@ import PIL
 from PIL import ImageTk,Image
 import os
 from random import shuffle
+from send2trash import send2trash
 
 root = tk.Tk()
 element_list = []
@@ -77,6 +78,7 @@ class Application(tk.Frame):
   def element_preview(self):
     self.canvas.delete("all")
     element_current = element_list[0]
+
     # Image handling
     if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
       self.image_raw = Image.open(element_list[0])
@@ -120,8 +122,10 @@ class Application(tk.Frame):
 
   # Pressing "Sweep" button
   def sweep_element(self):
+    element_current = element_list[0]
     # Delete current element
-    print("Sweep!")
+    if os.path.isfile(element_current):
+      send2trash(element_current)
     # Then go to next element
     self.next_element()
 
