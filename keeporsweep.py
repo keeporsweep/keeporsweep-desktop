@@ -59,16 +59,14 @@ class Application(tk.Frame):
     # Handle previews for images
     if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
       self.image_raw = Image.open(element_list[0])
-      # Fit image to canvas, https://stackoverflow.com/a/19450866
-      wpercent = (canvas_width / float(self.image_raw.size[0]))
-      hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.BICUBIC)
+      self.image_raw.thumbnail((canvas_width, canvas_height), PIL.Image.BICUBIC)
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
+     
 
     # Split up the file path, remove current directory
     element_relativepath = element_current[len(path):]
-    element_details, element_title = element_current.rsplit('/',1)
+    element_details, element_title = element_relativepath.rsplit('/',1)
 
     # Element title
     self.title = Label(self, text=element_title, font="-weight bold", bg="white")
@@ -93,11 +91,14 @@ class Application(tk.Frame):
     element_current = element_list[0]
     # Image handling
     if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-      # Update preview
       self.image_raw = Image.open(element_list[0])
-      wpercent = (canvas_width / float(self.image_raw.size[0]))
-      hsize = int((float(self.image_raw.size[1]) * float(wpercent)))
-      self.image_raw = self.image_raw.resize((canvas_width, hsize), PIL.Image.BICUBIC)
+      # Make image fill canvas
+      if self.image_raw.size[0] > self.image_raw.size[1]:
+        # Wider than tall
+        self.image_raw.thumbnail((self.image_raw.size[0], canvas_height+1), PIL.Image.BICUBIC)
+      else:
+        # Taller than wide
+        self.image_raw.thumbnail((canvas_width+1, self.image_raw.size[1]), PIL.Image.BICUBIC)
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
@@ -107,7 +108,7 @@ class Application(tk.Frame):
     element_current = element_list[0]
     # Splitting up the file path, removing current directory
     element_relativepath = element_current[len(path):]
-    element_details, element_title = element_current.rsplit('/',1)
+    element_details, element_title = element_relativepath.rsplit('/',1)
     # Element title
     self.title.config(text=element_title)
     # Element details
