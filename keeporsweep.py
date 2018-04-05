@@ -48,33 +48,21 @@ class Application(tk.Frame):
     shuffle(element_list)
 
 
-  # Create all interface elements
+  # Initial set up of all interface elements
   def create_widgets(self):
     # Preview container
     self.canvas = Canvas(self, width=canvas_width, height=canvas_height, bg="white")
     self.canvas.pack(side="top", expand=1, padx=margin, pady=margin)
 
-    element_current = element_list[0]
-
-    # Handle previews for images
-    if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-      self.image_raw = Image.open(element_list[0])
-      self.image_raw.thumbnail((canvas_width, canvas_height), PIL.Image.BICUBIC)
-      self.image = ImageTk.PhotoImage(self.image_raw)
-      self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
-     
-
-    # Split up the file path, remove current directory
-    element_relativepath = element_current[len(path):]
-    element_details, element_title = element_relativepath.rsplit('/',1)
-
-    # Element title
-    self.title = Label(self, text=element_title, font="-weight bold", bg="white")
+    # Element title & detail text
+    self.title = Label(self, font="-weight bold", bg="white")
     self.title.pack()
-
-    # Element details
-    self.details = Label(self, text=element_details, fg="grey", bg="white")
+    self.details = Label(self, fg="grey", bg="white")
     self.details.pack()
+
+    # Load first element
+    self.element_preview()
+    self.element_text()
 
     # Keep button
     self.keep = tk.Button(self, text="Keep", fg="white", bg="#0082c9", command=self.keep_element, cursor="heart", relief="flat", font="-weight bold")
