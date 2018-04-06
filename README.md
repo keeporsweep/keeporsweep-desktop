@@ -5,12 +5,12 @@
 </p>
 
 
-
 ## Info
 
 This is the desktop version for Windows, macOS & Linux. There’s also a [Nextcloud app](https://github.com/keeporsweep/keeporsweep), and more info at [keeporsweep.net](http://keeporsweep.net).
 
-![](keeporsweep-screenshot.png)
+![](screenshot.png)
+
 
 ## Installation
 
