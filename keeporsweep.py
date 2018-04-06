@@ -98,7 +98,7 @@ class Application(tk.Frame):
     element_current = element_list[0]
     # Splitting up the file path, removing current directory
     element_relativepath = element_current[len(path):]
-    element_details, element_title = element_relativepath.rsplit('/',1)
+    element_details, element_title = os.path.split(element_relativepath)
     # Element title
     self.title.config(text=element_title)
     # Element details
