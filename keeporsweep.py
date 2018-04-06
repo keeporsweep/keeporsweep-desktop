@@ -66,7 +66,7 @@ class Application(tk.Frame):
     self.element_text()
 
     # Keep button
-    self.keep = tk.Button(self, text="Keep", fg="white", bg="#0082c9", command=self.keep_element, cursor="heart", relief="flat", font="-weight bold")
+    self.keep = tk.Button(self, text="Keep", fg="white", bg="#0082c9", command=self.keep_element, cursor="heart", relief="flat", font="-weight bold", default="active")
     self.keep.pack(side="right", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
     # Sweep button
