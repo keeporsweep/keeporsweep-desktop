@@ -1,6 +1,12 @@
-# 💻🔀🗑️ Keep or Sweep
+<p align="center">
+    <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/icon.svg" height="64">
+    <h3 align="center">Keep or Sweep</h3>
+    <p align="center">Randomly clean data off your computer!<p>
+</p>
 
-**Randomly clean data off your computer!**
+
+
+## Info
 
 This is the desktop version for Windows, macOS & Linux. There’s also a [Nextcloud app](https://github.com/keeporsweep/keeporsweep), and more info at [keeporsweep.net](http://keeporsweep.net).
 
