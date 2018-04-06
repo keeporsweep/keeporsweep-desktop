@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/icon.svg" height="64">
+    <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/icon.png" height="64">
     <h3 align="center">Keep or Sweep</h3>
     <p align="center">Randomly clean data off your computer!<p>
 </p>
