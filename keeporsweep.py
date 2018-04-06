@@ -14,7 +14,7 @@ from send2trash import send2trash
 
 root = tk.Tk()
 element_list = []
-path = os.getcwd()
+path = os.path.dirname(os.path.abspath(__file__))
 
 # Ensure window fits screen
 # Preview canvas to half screen height and margin/padding relatively
