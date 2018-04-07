@@ -23,6 +23,8 @@ canvas_width = int(screen_height/2)
 canvas_height = int(screen_height/2)
 margin = int(screen_height/20)
 padding = int(margin/2)
+font_size = "-size 12"
+font_size_weight = "-size 12 -weight bold"
 
 
 
@@ -56,9 +58,9 @@ class Application(tk.Frame):
     self.canvas.pack(side="top", expand=1, padx=margin, pady=margin)
 
     # Element title & detail text
-    self.title = Label(self, font="-weight bold", bg="white")
+    self.title = Label(self, font=font_size_weight, bg="white", width="40")
     self.title.pack()
-    self.details = Label(self, fg="grey", bg="white")
+    self.details = Label(self, font=font_size, fg="#aaa", bg="white", width="40")
     self.details.pack()
 
     # Load first element
@@ -66,11 +68,11 @@ class Application(tk.Frame):
     self.element_text()
 
     # Keep button
-    self.keep = tk.Button(self, text="Keep", fg="white", bg="#0082c9", command=self.keep_element, cursor="heart", relief="flat", font="-weight bold", default="active")
+    self.keep = tk.Button(self, text="Keep", fg="white", bg="#0082c9", command=self.keep_element, cursor="heart", relief="flat", font=font_size_weight, default="active")
     self.keep.pack(side="right", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
     # Sweep button
-    self.sweep = tk.Button(self, text="Sweep", fg="white", bg="red", command=self.sweep_element, cursor="pirate", relief="flat", font="-weight bold")
+    self.sweep = tk.Button(self, text="Sweep", fg="white", bg="#e9322d", command=self.sweep_element, cursor="pirate", relief="flat", font=font_size_weight)
     self.sweep.pack(side="left", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
 
