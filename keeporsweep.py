@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 💻🔀🗑️ Keep or Sweep
+# 💻🔀🗑️ Keep or Sweep, v0.1.0 for desktop
 # Show a random file so you can clean your stuff
 # Simply make executable and click (or run as python3 keeporsweep.py)
 # http://keeporsweep.net
