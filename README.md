@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/icon.png" height="64">
+    <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/images/icon-128.png" height="64">
     <h3 align="center">Keep or Sweep</h3>
     <p align="center">Randomly clean data off your computer!<p>
 </p>
@@ -9,7 +9,7 @@
 
 This is the desktop version for Windows, macOS & Linux. There’s also a [Nextcloud app](https://github.com/keeporsweep/keeporsweep), and more info at [keeporsweep.net](http://keeporsweep.net).
 
-![](screenshot.png)
+![](images/screenshot.png)
 
 
 ## Installation
