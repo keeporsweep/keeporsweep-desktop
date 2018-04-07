@@ -34,8 +34,16 @@ class Application(tk.Frame):
   def __init__(self, master=None):
     super().__init__(master, bg="white")
     self.pack()
-    self.random_files(path)
+
+    # Set up basic layout
     self.create_widgets()
+
+    # Get the randomized file list
+    self.random_files(path)
+
+    # Load first element
+    self.element_preview()
+    self.element_text()
 
 
   # Return random list of all files
@@ -62,10 +70,6 @@ class Application(tk.Frame):
     self.title.pack()
     self.details = Label(self, font=font_size, fg="#aaa", bg="white", width="40")
     self.details.pack()
-
-    # Load first element
-    self.element_preview()
-    self.element_text()
 
     # Keep button
     self.keep = tk.Button(self, text="Keep", foreground="white", activeforeground="white", background="#0082c9", activebackground="#0072b0", command=self.keep_element, cursor="heart", bitmap="warning", compound="top", relief="flat", font=font_size_weight, default="active")
