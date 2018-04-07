@@ -21,8 +21,8 @@ path = os.path.dirname(os.path.abspath(__file__))
 screen_height = root.winfo_screenheight()
 canvas_width = int(screen_height/2)
 canvas_height = int(screen_height/2)
-margin = int(screen_height/20)
-padding = int(margin/2)
+margin = int(screen_height/40)
+padding = margin
 font_size = "-size 12"
 font_size_weight = "-size 12 -weight bold"
 
