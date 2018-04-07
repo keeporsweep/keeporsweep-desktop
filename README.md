@@ -1,7 +1,7 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/images/icon-256.png" height="128">
 </p>
-<h3 align="center">Keep or Sweep</h3>
+<h3 align="center"><a href="http://keeporsweep.net" target="_blank">Keep or Sweep</a></h3>
 <p align="center">Randomly clean data off your computer!<p>
 <p align="center">
     <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/images/screenshot.png" height="500">
@@ -11,7 +11,7 @@
 
 ## Install
 
-This is the desktop version for ⊞Windows, 🍏macOS & 🐧Linux. We are still preparing easy-to-launch apps for the platforms. Meanwhile check out the development setup to get the app running.
+This is the desktop app (v0.1.0) for [⊞Windows](https://github.com/keeporsweep/keeporsweep-desktop/releases/download/v0.1.0/Keep-or-Sweep.exe), [🍏macOS](https://github.com/keeporsweep/keeporsweep-desktop/releases/download/v0.1.0/Keep-or-Sweep.app.zip) & [🐧Linux](https://github.com/keeporsweep/keeporsweep-desktop/releases/download/v0.1.0/Keep-or-Sweep-Linux.Sweep).
 
 There’s also a [☁️Nextcloud app](https://github.com/keeporsweep/keeporsweep), and more info at [🔀keeporsweep.net](http://keeporsweep.net).
 
@@ -19,7 +19,7 @@ There’s also a [☁️Nextcloud app](https://github.com/keeporsweep/keeporswee
 
 ## Contribute
 
-Contributions are always welcome! 😍 Check out the [list of issues](https://github.com/keeporsweep/keeporsweep-desktop/issues) and see what you like to contribute.
+Contributions are always welcome! 😍 Check out the [list of issues](https://github.com/keeporsweep/keeporsweep-desktop/issues) and see what you like to contribute. Keep or Sweep is written in 🐍Python so if you know about that – come on board!
 
 
 ### Development setup
@@ -40,10 +40,10 @@ pip3 install Send2Trash
 ```
 pip3 install pyinstaller
 ```
-2. Then use this command to build the application for your operating system:
+2. Then use this command to build the application for your operating system (use icon.icns instead of icon.ico when building on macOS):
 ```
 pyinstaller --name="Keep or Sweep" --onefile --noconsole --icon="images/icon.ico" --clean keeporsweep.py
 ```
-(Use icon.icns when building on macOS)
+3. The executable file will be in the `dist` subfolder.
 
 In case the icon was changed, we need to generate those again. Windows .ico uses the 256px icon and can be saved using [GIMP](https://www.gimp.org/), macOS .icns uses icons ranging from 16px to 1024px and can be generated using [png2icns](https://dentrassi.de/2014/02/25/creating-mac-os-x-icons-icns-on-linux/).
