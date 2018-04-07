@@ -68,11 +68,11 @@ class Application(tk.Frame):
     self.element_text()
 
     # Keep button
-    self.keep = tk.Button(self, text="Keep", foreground="white", activeforeground="white", background="#0082c9", activebackground="#0072b0", command=self.keep_element, cursor="heart", relief="flat", font=font_size_weight, default="active")
+    self.keep = tk.Button(self, text="Keep", foreground="white", activeforeground="white", background="#0082c9", activebackground="#0072b0", command=self.keep_element, cursor="heart", bitmap="warning", compound="top", relief="flat", font=font_size_weight, default="active")
     self.keep.pack(side="right", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
     # Sweep button
-    self.sweep = tk.Button(self, text="Sweep", foreground="white", activeforeground="white", background="#e9322d", activebackground="#e51d18", command=self.sweep_element, cursor="pirate", relief="flat", font=font_size_weight)
+    self.sweep = tk.Button(self, text="Sweep", foreground="white", activeforeground="white", background="#e9322d", activebackground="#e51d18", command=self.sweep_element, cursor="pirate", bitmap="error", compound="top", relief="flat", font=font_size_weight)
     self.sweep.pack(side="left", ipadx=padding, ipady=padding, padx=margin, pady=margin)
 
 
