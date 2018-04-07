@@ -1,8 +1,8 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/images/icon-256.png" height="128">
 </p>
-<h3 align="center"><a href="http://keeporsweep.net" target="_blank">Keep or Sweep</a></h3>
-<p align="center">Randomly clean data off your computer!<p>
+<h3 align="center"><a href="http://keeporsweep.net">Keep or Sweep</a></h3>
+<p align="center">Randomly declutter your computer!<p>
 <p align="center">
     <img src="https://raw.githubusercontent.com/keeporsweep/keeporsweep-desktop/master/images/screenshot.png" height="500">
 </p>
