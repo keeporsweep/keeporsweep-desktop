@@ -1,149 +1,73 @@
-#!/usr/bin/env python3
-# 💻🔀🗑️ Keep or Sweep, v0.1.0 for desktop
-# Show a random file so you can clean your stuff
-# Simply make executable and click (or run as python3 keeporsweep.py)
-# http://keeporsweep.net
+'''
+Basic Picture Viewer
+====================
 
-import tkinter as tk
-from tkinter import *
-import PIL
-from PIL import ImageTk,Image
-import os
-from random import shuffle
-from send2trash import send2trash
+This simple image browser demonstrates the scatter widget. You should
+see three framed photographs on a background. You can click and drag
+the photos around, or multi-touch to drop a red dot to scale and rotate the
+photos.
 
-root = tk.Tk()
-element_list = []
-path = os.path.dirname(os.path.abspath(__file__))
+The photos are loaded from the local images directory, while the background
+picture is from the data shipped with kivy in kivy/data/images/background.jpg.
+The file pictures.kv describes the interface and the file shadow32.png is
+the border to make the images look like framed photographs. Finally,
+the file android.txt is used to package the application for use with the
+Kivy Launcher Android application.
 
-# Ensure window fits screen
-# Preview canvas to half screen height and margin/padding relatively
-screen_height = root.winfo_screenheight()
-canvas_width = int(screen_height/2)
-canvas_height = int(screen_height/2)
-margin = int(screen_height/40)
-padding = margin
-font_size = "-size 12"
-font_size_weight = "-size 12 -weight bold"
+For Android devices, you can copy/paste this directory into
+/sdcard/kivy/pictures on your Android device.
 
+The images in the image directory are from the Internet Archive,
+`https://archive.org/details/PublicDomainImages`, and are in the public
+domain.
 
+'''
 
-class Application(tk.Frame):
+import kivy
+kivy.require('1.0.6')
 
-
-  def __init__(self, master=None):
-    super().__init__(master, bg="white")
-    self.pack()
-
-    # Set up basic layout
-    self.create_widgets()
-
-    # Get the randomized file list
-    self.random_files(path)
-
-    # Load first element
-    self.element_preview()
-    self.element_text()
+from glob import glob
+from random import randint
+from os.path import join, dirname
+from kivy.app import App
+from kivy.logger import Logger
+from kivy.uix.scatter import Scatter
+from kivy.properties import StringProperty
 
 
-  # Return random list of all files
-  def random_files(self, path):
-    global element_list
-    # Get list of all files
-    for root, dirs, files in os.walk(path):
-      # Ignore hidden folders
-      dirs[:] = [d for d in dirs if not d.startswith('.')]
-      for file in files:
-        element_list.append(os.path.join(root, file))
-    # Return it in random order
-    shuffle(element_list)
+class Picture(Scatter):
+    '''Picture is the class that will show the image with a white border and a
+    shadow. They are nothing here because almost everything is inside the
+    picture.kv. Check the rule named <Picture> inside the file, and you'll see
+    how the Picture() is really constructed and used.
+
+    The source property will be the filename to show.
+    '''
+
+    source = StringProperty(None)
 
 
-  # Initial set up of all interface elements
-  def create_widgets(self):
-    # Preview container
-    self.canvas = Canvas(self, width=canvas_width, height=canvas_height, bg="white")
-    self.canvas.pack(side="top", expand=1, padx=margin, pady=margin)
+class PicturesApp(App):
 
-    # Element title & detail text
-    self.title = Label(self, font=font_size_weight, bg="white", width="40")
-    self.title.pack()
-    self.details = Label(self, font=font_size, fg="#aaa", bg="white", width="40")
-    self.details.pack()
+    def build(self):
 
-    # Keep button
-    self.keep = tk.Button(self, text="Keep", foreground="white", activeforeground="white", background="#0082c9", activebackground="#0072b0", command=self.keep_element, cursor="heart", bitmap="warning", compound="top", relief="flat", font=font_size_weight, default="active")
-    self.keep.pack(side="right", ipadx=padding, ipady=padding, padx=margin, pady=margin)
+        # the root is created in pictures.kv
+        root = self.root
 
-    # Sweep button
-    self.sweep = tk.Button(self, text="Sweep", foreground="white", activeforeground="white", background="#e9322d", activebackground="#e51d18", command=self.sweep_element, cursor="pirate", bitmap="error", compound="top", relief="flat", font=font_size_weight)
-    self.sweep.pack(side="left", ipadx=padding, ipady=padding, padx=margin, pady=margin)
+        # get any files into images directory
+        curdir = dirname(__file__)
+        for filename in glob(join(curdir, 'images', '*')):
+            try:
+                # load the image
+                picture = Picture(source=filename, rotation=randint(-30, 30))
+                # add to the main field
+                root.add_widget(picture)
+            except Exception as e:
+                Logger.exception('Pictures: Unable to load <%s>' % filename)
 
-
-  # Display preview of current element
-  def element_preview(self):
-    self.canvas.delete("all")
-    element_current = element_list[0]
-
-    # Image handling
-    if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-      self.image_raw = Image.open(element_list[0])
-      # Make image fill canvas
-      if self.image_raw.size[0] > self.image_raw.size[1]:
-        # Wider than tall
-        self.image_raw.thumbnail((self.image_raw.size[0], canvas_height+1), PIL.Image.BICUBIC)
-      else:
-        # Taller than wide
-        self.image_raw.thumbnail((canvas_width+1, self.image_raw.size[1]), PIL.Image.BICUBIC)
-      self.image = ImageTk.PhotoImage(self.image_raw)
-      self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
+    def on_pause(self):
+        return True
 
 
-  # Display title and details of current element
-  def element_text(self):
-    element_current = element_list[0]
-    # Splitting up the file path, removing current directory
-    element_relativepath = element_current[len(path):]
-    element_details, element_title = os.path.split(element_relativepath)
-    # Element title
-    self.title.config(text=element_title)
-    # Element details
-    self.details.config(text=element_details)
-
-
-  # Move to next element
-  def next_element(self):
-    # Remove element from list
-    element_list.pop(0)
-    # Display next element
-    self.element_preview()
-    self.element_text()
-
-
-  # Pressing "Keep" button
-  def keep_element(self):
-    # Simply go to next element
-    self.next_element()
-
-
-  # Pressing "Sweep" button
-  def sweep_element(self):
-    # Flash on deletion for extra excitement
-    self.sweep.flash()
-    element_current = element_list[0]
-    # Delete current element
-    if os.path.isfile(element_current):
-      send2trash(element_current)
-    # Then go to next element
-    self.next_element()
-
-
-
-app = Application(master=root)
-app.master.title("Keep or Sweep")
-app.master.configure(background="white")
-# Center window on the screen
-# https://stackoverflow.com/a/28224382
-root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
-
-app.mainloop()
+if __name__ == '__main__':
+    PicturesApp().run()
