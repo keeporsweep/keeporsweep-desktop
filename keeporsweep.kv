@@ -3,29 +3,12 @@
 #:import win kivy.core.window
 
 FloatLayout:
-    canvas:
+    canvas.before:
         Color:
-            rgb: 1, 1, 1
+            rgba: 1, 1, 1, 1
         Rectangle:
-            source: 'data/images/background.jpg'
+            pos: self.pos
             size: self.size
-
-    BoxLayout:
-        padding: 10
-        spacing: 10
-        size_hint: 1, None
-        pos_hint: {'top': 1}
-        height: 44
-        Image:
-            size_hint: None, None
-            size: 24, 24
-            source: 'data/logo/kivy-icon-24.png'
-        Label:
-            height: 24
-            text_size: self.width, None
-            color: (1, 1, 1, .8)
-            text: 'Kivy %s - Pictures' % kivy.__version__
-
 
 
 <Picture>:
@@ -46,12 +29,9 @@ FloatLayout:
         # add shadow background
         canvas.before:
             Color:
-                rgba: 1,1,1,1
+                rgba: 1, 1, 1, 1
             BorderImage:
                 source: 'shadow32.png'
-                border: (36,36,36,36)
-                size:(self.width+72, self.height+72)
-                pos: (-36,-36)
-
-
-
+                border: (32, 32, 32, 32)
+                size:(self.width+64, self.height+64)
+                pos: (-32, -32)
