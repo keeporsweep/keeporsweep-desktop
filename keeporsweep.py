@@ -163,6 +163,6 @@ app.master.title("Keep or Sweep")
 app.master.configure(background="white")
 # Center window on the screen
 # https://stackoverflow.com/a/28224382
-#root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
+root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 
 app.mainloop()
