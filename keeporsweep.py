@@ -47,6 +47,8 @@ class Application(tk.Frame):
     self.element_text()
 
 
+
+
   # Return random list of all files
   def random_files(self, path):
     global element_list
@@ -110,22 +112,32 @@ class Application(tk.Frame):
     element_details, element_title = os.path.split(element_relativepath)
     # Element title
     self.title.config(text=element_title)
-    self.title.bind("<Button-1>",self.open_file)
+    self.title.bind("<Button-1>",self.show_file)
     # Element details
     self.details.config(text=element_details)
-    self.details.bind("<Button-1>", self.open_folder)
+    self.details.bind("<Button-1>", self.show_folder)
 
   #Open folder on clicking path
-  def open_folder(self, null_arg):
+  def show_folder(self, null_arg):
 
     pathToFolder = os.path.dirname(os.path.abspath(element_list[0]))
-    os.startfile(os.path.realpath(pathToFolder))
+    self.open_file(os.path.realpath(pathToFolder))
 
   # Open file on click file path
-  def open_file(self, null_arg):
+  def show_file(self, null_arg):
 
     pathToFolder = os.path.abspath(element_list[0])
-    os.system('"{}"' .format(pathToFolder))
+    self.open_file(pathToFolder)
+
+  #Open the file according to the OS platform
+  def open_file(self, filename):
+    if sys.platform == "win32":
+        os.startfile(filename)
+    else:
+        opener ="open" if sys.platform == "darwin" else "xdg-open"
+        subprocess.call([opener, filename])
+
+
     
 
 
@@ -163,6 +175,6 @@ app.master.title("Keep or Sweep")
 app.master.configure(background="white")
 # Center window on the screen
 # https://stackoverflow.com/a/28224382
-root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
+#root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 
 app.mainloop()
