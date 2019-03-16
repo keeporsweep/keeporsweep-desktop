@@ -101,6 +101,7 @@ class Application(tk.Frame):
         self.image_raw.thumbnail((canvas_width+1, self.image_raw.size[1]), PIL.Image.BICUBIC)
 
       self.image = ImageTk.PhotoImage(self.image_raw)
+      self.canvas.bind("<Button-1>",self.show_file)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
 
 
