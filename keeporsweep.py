@@ -12,6 +12,11 @@ from PIL import ImageTk,Image
 import os
 from random import shuffle
 from send2trash import send2trash
+import subprocess
+try:
+  import sys
+except:
+  pass
 
 root = tk.Tk()
 element_list = []
@@ -176,6 +181,7 @@ app.master.title("Keep or Sweep")
 app.master.configure(background="white")
 # Center window on the screen
 # https://stackoverflow.com/a/28224382
-#root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
+if sys.platform != "win32":
+  root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 
 app.mainloop()
