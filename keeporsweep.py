@@ -187,4 +187,5 @@ app.master.configure(background="white")
 if sys.platform != "win32":
   root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 
+root.iconbitmap('images/icon.ico')
 app.mainloop()
