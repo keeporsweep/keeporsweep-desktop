@@ -95,7 +95,8 @@ class Application(tk.Frame):
     element_current = element_list[0]
 
     # Image handling
-    if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+    # if element_current.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+    try:
       self.image_raw = Image.open(element_list[0])
       # Make image fill canvas
       if self.image_raw.size[0] > self.image_raw.size[1]:
@@ -108,6 +109,8 @@ class Application(tk.Frame):
       self.image = ImageTk.PhotoImage(self.image_raw)
       self.canvas.bind("<Button-1>",self.show_file)
       self.canvas.create_image(canvas_width/2, canvas_height/2, anchor="center", image=self.image)
+    except:
+      return
 
 
   # Display title and details of current element
